@@ -1,0 +1,30 @@
+server:
+  port: 8081
+spring:
+  cloud:
+    stream:
+      bindings:
+        notification-channel:
+          destination: notification-event-v1
+          binder: kafka
+          producer:
+            use-native-encoding: true
+      binders:
+        kafka:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      brokers: localhost:9092,localhost:9093,localhost:9094
+                      auto-create-topics: true
+                      required-acks: -1
+                      min-partition-count: 3
+                      replication-factor: 2
+                      producer-properties:
+                        enable.idempotence: false
+                        key.serializer: org.apache.kafka.common.serialization.StringSerializer
+                        value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
+                        acks: all
