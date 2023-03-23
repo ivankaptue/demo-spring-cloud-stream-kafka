@@ -8,6 +8,7 @@ spring:
           destination: notification-event-v1
           binder: kafka
           producer:
+            partitionCount: 3
             use-native-encoding: true
       binders:
         kafka:
@@ -20,6 +21,7 @@ spring:
                     binder:
                       brokers: localhost:9092,localhost:9093,localhost:9094
                       auto-create-topics: true
+                      auto-add-partitions: true
                       required-acks: -1
                       min-partition-count: 3
                       replication-factor: 2

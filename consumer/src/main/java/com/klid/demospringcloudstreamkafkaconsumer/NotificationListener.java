@@ -6,14 +6,11 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
-import java.util.function.Consumer;
-
 @Slf4j
 @Component
-public class NotificationListener implements Consumer<Message<Notification>> {
+public class NotificationListener {
 
-  @Override
-  public void accept(Message<Notification> message) {
+  public void consumeMessage(Message<Notification> message) {
     log.info("Received message {}", message);
 
     var notification = message.getPayload();
